@@ -1,0 +1,352 @@
+body {
+    margin: 0;
+    background: #f8f9fa;
+    font-family: Open Sans;
+}
+
+#header {
+    /*background: linear-gradient(135deg, #00B9F2, #3C6FC6, #7030A0);*/
+    /*background: #262626;*/
+    background: #D3D3D3;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    float: left;
+    width: 100%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+#logo {
+    height: 34px;
+    float: left;
+}
+
+#title {
+    margin: calc(25.9px - 13.33px) 0 0 3px;
+    font-variant: small-caps;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    float: left;
+    vertical-align: bottom;
+    background: linear-gradient(175deg, #4E5AB9, #7030A0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#graph-container {
+    width: calc(100% - 30px - 320px);
+    float: left;
+    margin: 10px 0 10px 10px;
+    overflow: hidden;
+    max-height: calc(100% - 20px);
+    height: 100%;
+}
+
+#graph {
+    height: calc(100% - 41px);
+    min-height: 200px;
+    float: left;
+    width: 100%;
+}
+
+#sidebar {
+    width: 320px;
+    padding: 10px;
+    float: left;
+    overflow-y: auto;
+    max-height: calc(100% - 20px);
+}
+
+.dashboard-card {
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    background: white;
+    border-radius: 5px;
+}
+
+.sidebar-card {
+    margin: 10px 0;
+}
+
+.link-card {
+    background: gray;
+    transition: background 0.2s;
+}
+
+.no-underline {
+    text-decoration: none;
+}
+
+.link-card:hover {
+    background: dimgray;
+}
+
+.link-card-text {
+    width: 100%;
+    margin: 0;
+    padding: 10px 0;
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.remove-top-margin {
+    margin-top: 0;
+}
+
+.remove-bottom-margin {
+    margin-bottom: 0;
+}
+
+.card-title {
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    padding: 10px 0;
+    margin: 0;
+    font-size: 15px;
+    border-radius: 5px 5px 0 0;
+    letter-spacing: 0.5px;
+    float: left;
+    width: 100%;
+}
+
+#cofc-title{
+    background: #660000;
+}
+
+#chs-title {
+    /*background: #66520A*/
+    background: #056657;
+}
+
+#sc-title {
+    background: #003366
+}
+
+.card-cases {
+    width: 50%;
+    display: inline-block;
+}
+
+.card-deaths {
+    width: 50%;
+    display: inline-block;
+}
+
+.number {
+    text-align: center;
+    font-size: 30px;
+    margin: 5px 0;
+    font-weight: 900;
+}
+
+.label {
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 10px 5px 10px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.toggle-graph-button {
+    width: calc(100% - 60px);
+    margin: 0 30px 10px 30px;
+    padding: 3px 4px 4px 4px;
+    font-size: 10px;
+    font-family: Open Sans;
+    text-transform: uppercase;
+    border: 0.5px solid gray;
+    color: gray;
+    background: white;
+    border-radius: 5px;
+    transition: box-shadow 0.25s;
+    transition: background 0.25s;
+}
+
+.toggle-graph-button:hover {
+    background: #EFEFEF;
+    box-shadow: inset 0px 0px 1px rgba(0, 0, 0, 0.25), inset 0px 1px 3px rgba(162, 177, 198, 0.32);
+    cursor: pointer;
+}
+
+.selected-graph-button {
+    background: #EFEFEF;
+    box-shadow: inset 0px 0px 1px rgba(0, 0, 0, 1), inset 0px 1px 3px rgba(162, 177, 198, 0.32)!important;
+    cursor: auto!important;
+}
+
+.toggle-graph-button:disabled {
+    opacity: 0.25;
+    background: white;
+    box-shadow: none;
+    cursor: auto;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.hover-number {
+    font-size: 24px;
+}
+
+.js-plotly-plot .plotly .cursor-ew-resize {
+    cursor: crosshair!important;
+}
+
+#body {
+    float: left;
+    width: 100%;
+    height: calc(100vh - 64px - 17px);
+}
+
+#footer {
+    float: left;
+    color: #555555;
+    background: #D3D3D3;
+    width: 100%;
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+
+.footer-items {
+    margin: 0;
+    padding: 2px 5px;
+    font-size: 10px;
+    height: 13px;
+    display: inline-block;
+}
+
+.footer-items:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.left-footer {
+    float: left;
+}
+
+.right-footer {
+    float: right;
+}
+
+.popup-box {
+    background: white;
+    position: fixed;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2), 0 0 30px rgba(0,0,0,0.4);
+    bottom: 0;
+    margin: 20px 5px;
+    width: 325px;
+}
+
+#popup-left {
+    left: 0;
+}
+
+#popup-right {
+    right: 0;
+}
+
+.popup-heading {
+    width: 100%;
+    background: gray;
+    padding: 10px;
+    box-sizing: border-box;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: white;
+}
+
+.popup-title {
+    text-transform: uppercase;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    margin: 0;
+}
+
+.popup-close {
+    display: inline-block;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px 15px;
+    border-top-right-radius: 5px;
+    transition: 0.2s background;
+}
+
+.popup-close:hover {
+    background: dimgray;
+    cursor: pointer;
+}
+
+.popup-body {
+    padding: 10px;
+    margin: 0;
+    font-size: 12px;
+}
+
+/* Screen width larger than 1200px */
+@media only screen and (min-width: 1200px) {
+    #sidebar {
+        width: 25%;
+    }
+
+    #graph-container {
+        width: calc(100% - 30px - 25%);
+    }
+}
+
+/* Screen width between 600px and 800px */
+@media only screen and (min-width: 600px) and (max-width: 800px) {
+    #sidebar {
+        width: 225px;
+    }
+
+    #graph-container {
+        width: calc(100% - 30px - 225px);
+    }
+}
+
+/* Screen width less than 600px */
+@media only screen and (max-width: 600px) {
+    #body {
+        height: initial;
+    }
+
+    #sidebar {
+        width: calc(100% - 20px);
+        max-height: none;
+    }
+
+    #graph-container {
+        max-height: 600px;
+        width: calc(100% - 20px);
+    }
+
+    #graph {
+        height: 60vh;
+    }
+}
+
+/* Screen width less than 436px */
+@media only screen and (max-width: 436px) {
+    #title {
+        float: right;
+        margin: 0;
+    }
+}
+
+/* Screen width less than 400px */
+@media only screen and (max-width: 400px) {
+    .popup-box {
+        width: calc(100% - 10px);
+    }
+}
