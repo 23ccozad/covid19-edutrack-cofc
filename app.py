@@ -7,6 +7,7 @@ import urllib.error
 import datetime
 
 app = dash.Dash(__name__)
+server = app.server
 app.title = 'COVID-19 EduTrack @ CofC'
 
 data_url_root = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/"
