@@ -10,6 +10,10 @@ app = dash.Dash(__name__)
 server = app.server
 app.title = 'COVID-19 EduTrack @ CofC'
 
+app.scripts.append_script({
+    'external_url': 'https://www.googletagmanager.com/gtag/js?id=UA-174296614-1'
+})
+
 data_url_root = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/"
 today = datetime.datetime.utcnow()
 
