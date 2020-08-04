@@ -307,8 +307,8 @@ def generate_fig(show_chs_cases=False, show_chs_deaths=False, show_sc_cases=Fals
         shapes=class_mode_shapes + semester_shapes,
         annotations=class_mode_labels + semester_labels,
         showlegend=False,
-        # transition_duration=1000,
-        # transition_easing='exp-in-out',
+        transition_duration=1000,
+        transition_easing='exp-in-out',
     )
 
     return fig
