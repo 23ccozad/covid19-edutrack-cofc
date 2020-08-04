@@ -336,8 +336,8 @@ button:focus {
     }
 }
 
-/* Screen width less than 436px */
-@media only screen and (max-width: 436px) {
+/* Screen width less than 450px */
+@media only screen and (max-width: 450px) {
     #title {
         float: right;
         margin: 0;
