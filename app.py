@@ -5,14 +5,27 @@ import plotly.graph_objects as go
 import pandas as pd
 import urllib.error
 import datetime
+import re
+from flask import request
 
 external_scripts = [
-    'https://www.googletagmanager.com/gtag/js?id=UA-174296614-1'
+    'https://www.googletagmanager.com/gtag/js?id=UA-174296614-1',
 ]
 
 app = dash.Dash(__name__, external_scripts=external_scripts)
 server = app.server
 app.title = 'COVID-19 EduTrack @ CofC'
+
+is_mobile = None
+
+@server.before_request
+def before_request():
+    agent = request.headers.get("User_Agent")
+    mobile_string = "(?i)android|fennec|iemobile|iphone|opera (?:mini|mobi)|mobile"
+    re_mobile = re.compile(mobile_string)
+    global is_mobile
+    is_mobile = len(re_mobile.findall(agent)) > 0
+    print(is_mobile)
 
 data_url_root = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/"
 today = datetime.datetime.utcnow()
@@ -251,6 +264,16 @@ def generate_fig(show_chs_cases=False, show_chs_deaths=False, show_sc_cases=Fals
             hoverinfo='none'
         ))
 
+    def configure_rangeslider():
+        if not is_mobile:
+            return dict(
+                visible=True,
+                bgcolor="rgba(211, 211, 211, 0.2)",
+                range=[datetime.datetime(2020, 1, 8), datetime.datetime(2020, 12, 14)]
+            )
+        else:
+            return dict(visible=False)
+
     fig.update_layout(
         autosize=True,
         dragmode=False,
@@ -264,11 +287,7 @@ def generate_fig(show_chs_cases=False, show_chs_deaths=False, show_sc_cases=Fals
             tickfont=dict(
                 color="dimgray"
             ),
-            rangeslider=dict(
-                visible=True,
-                bgcolor="rgba(211, 211, 211, 0.2)",
-                range=[datetime.datetime(2020, 1, 8), datetime.datetime(2020, 12, 14)]
-            ),
+            rangeslider=configure_rangeslider(),
             type="date",
             # showline=True,
             # spikethickness=1.5,
@@ -337,7 +356,13 @@ app.layout = html.Div(children=[
             dcc.Graph(
                 id='graph',
                 figure=generate_fig(),
-                config={"displayModeBar": False, "showTips": False, "responsive": True, "autosizable": True}
+                config={
+                    "displayModeBar": False,
+                    "showTips": False,
+                    "responsive": True,
+                    "autosizable": True,
+                    "doubleClick": not is_mobile,
+                }
             )
         ], id='graph-container', className='dashboard-card'),
 
