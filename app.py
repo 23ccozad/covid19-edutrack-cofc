@@ -6,13 +6,13 @@ import pandas as pd
 import urllib.error
 import datetime
 
-app = dash.Dash(__name__)
+external_scripts = [
+    'https://www.googletagmanager.com/gtag/js?id=UA-174296614-1'
+]
+
+app = dash.Dash(__name__, external_scripts=external_scripts)
 server = app.server
 app.title = 'COVID-19 EduTrack @ CofC'
-
-app.scripts.append_script({
-    'external_url': 'https://www.googletagmanager.com/gtag/js?id=UA-174296614-1'
-})
 
 data_url_root = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/"
 today = datetime.datetime.utcnow()
@@ -307,8 +307,8 @@ def generate_fig(show_chs_cases=False, show_chs_deaths=False, show_sc_cases=Fals
         shapes=class_mode_shapes + semester_shapes,
         annotations=class_mode_labels + semester_labels,
         showlegend=False,
-        transition_duration=1000,
-        transition_easing='exp-in-out',
+        # transition_duration=1000,
+        # transition_easing='exp-in-out',
     )
 
     return fig
@@ -319,7 +319,7 @@ app.layout = html.Div(children=[
         name='viewport',
         content='width=device-width, initial-scale=1.0'
     ),
-    
+
     html.Link(
         href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap',
         rel="stylesheet"
