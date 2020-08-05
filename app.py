@@ -362,19 +362,19 @@ app.layout = html.Div(children=[
 
         html.Div([
 
-            html.Div([
-                html.H2(children='College of Charleston', id='cofc-title', className='card-title'),
-                html.Div([
-                    html.P(children='0', className='number'),
-                    html.P(children='Confirmed Cases', className='label'),
-                    html.Button('Show Graph', className='toggle-graph-button', id='show-cofc-cases', disabled=True)
-                ], className='card-deaths'),
-                html.Div([
-                    html.P(children='0', className='number'),
-                    html.P(children='Reported Deaths', className='label'),
-                    html.Button('Show Graph', className='toggle-graph-button', id='show-cofc-deaths', disabled=True)
-                ], className='card-cases')
-            ], className='dashboard-card sidebar-card remove-top-margin'),
+            # html.Div([
+            #     html.H2(children='College of Charleston', id='cofc-title', className='card-title'),
+            #     html.Div([
+            #         html.P(children='0', className='number'),
+            #         html.P(children='Confirmed Cases', className='label'),
+            #         html.Button('Show Graph', className='toggle-graph-button', id='show-cofc-cases', disabled=True)
+            #     ], className='card-deaths'),
+            #     html.Div([
+            #         html.P(children='0', className='number'),
+            #         html.P(children='Reported Deaths', className='label'),
+            #         html.Button('Show Graph', className='toggle-graph-button', id='show-cofc-deaths', disabled=True)
+            #     ], className='card-cases')
+            # ], className='dashboard-card sidebar-card'),
 
             html.Div([
                 html.H2(children='Charleston County', id='chs-title', className='card-title'),
@@ -388,7 +388,7 @@ app.layout = html.Div(children=[
                     html.P(children='Reported Deaths', className='label'),
                     html.Button('Show Graph', className='toggle-graph-button', id='show-chs-deaths')
                 ], className='card-cases')
-            ], className='dashboard-card sidebar-card'),
+            ], className='dashboard-card sidebar-card remove-top-margin'),
 
             html.Div([
                 html.H2(children='South Carolina', id='sc-title', className='card-title'),
@@ -463,7 +463,7 @@ app.layout = html.Div(children=[
             'allows the developer to make improvements to this website. The developer does not share this information '
             'with third parties. Users may click the following link to learn more about ',
             html.A('Google Analytics Terms of Service.', href='https://marketingplatform.google.com/about/analytics/terms/us/', target='_blank'),
-            ' Users may use the browser tool at the following link to ',
+            ' Users may use this browser tool to choose to ',
             html.A('opt-out of Google Analytics.', href='https://tools.google.com/dlpage/gaoptout?hl=en', target='_blank'),
             ' Users may also use the instructions at the following link to ',
             html.A('disable cookies in their browser', href='https://www.avast.com/c-enable-disable-cookies', target='_blank'),
