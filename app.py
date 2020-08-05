@@ -25,7 +25,6 @@ def before_request():
     re_mobile = re.compile(mobile_string)
     global is_mobile
     is_mobile = len(re_mobile.findall(agent)) > 0
-    print(is_mobile)
 
 data_url_root = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/"
 today = datetime.datetime.utcnow()
@@ -101,12 +100,7 @@ class_mode_intervals['Start_Date'] = pd.to_datetime(class_mode_intervals['Start_
 class_mode_intervals['End_Date'] = pd.to_datetime(class_mode_intervals['End_Date'])
 
 layout = go.Layout(
-    margin=go.layout.Margin(
-        l=50,
-        r=50,
-        b=20,
-        t=50
-    ),
+    margin=go.layout.Margin(l=50, r=50, b=20, t=50),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
 )
@@ -431,7 +425,7 @@ app.layout = html.Div(children=[
 
     html.Div([
         html.P('About the Developer', className='footer-items left-footer', id='open-about'),
-        html.P('Disclaimer', className='footer-items right-footer', id='open-disclaimer')
+        html.P('Disclaimer & Privacy Policy', className='footer-items right-footer', id='open-disclaimer')
     ], id='footer'),
 
     html.Div([
@@ -443,14 +437,16 @@ app.layout = html.Div(children=[
             'This dashboard was developed by Connor Cozad, an undergraduate studying data science at the College of '
             'Charleston. Feel free to reach out via ',
             html.A('LinkedIn', href='https://www.linkedin.com/in/connor-cozad', target='_blank'),
-            '.'
+            ' or by email at 23ccozad@gmail.com.',
+            html.Br(), html.Br(),
+            'Copyright © 2020 Connor Cozad'
         ],
         className='popup-body')
     ], id="popup-left", className="popup-box", style={'display': 'none'}),
 
     html.Div([
         html.Div([
-            html.H2('Disclaimer', className='popup-title'),
+            html.H2('Disclaimer & Privacy Policy', className='popup-title'),
             html.P('×', className='popup-close', id='close-disclaimer')
         ], className="popup-heading"),
         html.P([
@@ -458,9 +454,20 @@ app.layout = html.Div(children=[
             'the State of South Carolina, or the South Carolina Department of Health and Environmental Control. Links to external websites do not indicate an affiliation.',
             html.Br(), html.Br(),
             'Data presented on this webpage is provided by ',
-            html.A('JHU CSSE COVID-19 Data', href='https://github.com/CSSEGISandData/COVID-19'),
+            html.A('JHU CSSE COVID-19 Data', href='https://github.com/CSSEGISandData/COVID-19', target='_blank'),
             '. The developer is not liable nor responsible for the accuracy of this data, nor any decisions made based '
-            'on the presentation of this data.'
+            'on the presentation of this data.',
+            html.Br(), html.Br(),
+            'This website uses Google Analytics scripts and cookies to collect information about users and how they '
+            'interact with this website. This information includes the user’s IP address. The collected information '
+            'allows the developer to make improvements to this website. The developer does not share this information '
+            'with third parties. Users may click the following link to learn more about ',
+            html.A('Google Analytics Terms of Service.', href='https://marketingplatform.google.com/about/analytics/terms/us/', target='_blank'),
+            ' Users may use this browser tool to choose to ',
+            html.A('opt-out of Google Analytics.', href='https://tools.google.com/dlpage/gaoptout?hl=en', target='_blank'),
+            ' Users may also use the instructions at the following link to ',
+            html.A('disable cookies in their browser', href='https://www.avast.com/c-enable-disable-cookies', target='_blank'),
+            '. For more information about the privacy policy, contact the developer by email at 23ccozad@gmail.com.'
         ], className='popup-body'),
     ], id="popup-right", className="popup-box", style={'display': 'none'})
 ])
