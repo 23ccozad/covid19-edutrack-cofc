@@ -243,6 +243,8 @@ button:focus {
     bottom: 0;
     margin: 20px 5px;
     width: 325px;
+    overflow-y: auto;
+    max-height: calc(100% - 30px);
 }
 
 #popup-left {
