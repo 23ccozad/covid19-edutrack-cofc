@@ -436,7 +436,7 @@ app.layout = html.Div(children=[
             html.P('×', className='popup-close', id='close-disclaimer')
         ], className="popup-heading"),
         html.P([
-            'This webpage is not affiliated with the College of Charleston, the City of Charleston, Charleston County, '
+            'This webpage is not affiliated with the College of Charleston (CofC), the City of Charleston, Charleston County, '
             'the State of South Carolina, or the South Carolina Department of Health and Environmental Control. Links to external websites do not indicate an affiliation.',
             html.Br(), html.Br(),
             'Data presented on this webpage is provided by ',
