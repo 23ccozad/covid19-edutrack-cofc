@@ -14,7 +14,7 @@ external_scripts = [
 
 app = dash.Dash(__name__, external_scripts=external_scripts)
 server = app.server
-app.title = 'COVID-19 EduTrack @ CofC'
+app.title = 'COVID-19 EduTrack @ Charleston, SC'
 
 is_mobile = None
 
@@ -340,7 +340,7 @@ app.layout = html.Div(children=[
 
     html.Div([
         html.Img(src='assets/horizontal_logo_for_light_background.png', id='logo'),
-        html.P('at College of Charleston', id='title')
+        html.P('Charleston, SC', id='title')
     ], id='header'),
 
     html.Div([
@@ -361,20 +361,6 @@ app.layout = html.Div(children=[
         ], id='graph-container', className='dashboard-card'),
 
         html.Div([
-
-            # html.Div([
-            #     html.H2(children='College of Charleston', id='cofc-title', className='card-title'),
-            #     html.Div([
-            #         html.P(children='0', className='number'),
-            #         html.P(children='Confirmed Cases', className='label'),
-            #         html.Button('Show Graph', className='toggle-graph-button', id='show-cofc-cases', disabled=True)
-            #     ], className='card-deaths'),
-            #     html.Div([
-            #         html.P(children='0', className='number'),
-            #         html.P(children='Reported Deaths', className='label'),
-            #         html.Button('Show Graph', className='toggle-graph-button', id='show-cofc-deaths', disabled=True)
-            #     ], className='card-cases')
-            # ], className='dashboard-card sidebar-card'),
 
             html.Div([
                 html.H2(children='Charleston County', id='chs-title', className='card-title'),
