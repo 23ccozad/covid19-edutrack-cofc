@@ -14,7 +14,7 @@ external_scripts = [
 
 app = dash.Dash(__name__, external_scripts=external_scripts)
 server = app.server
-app.title = 'COVID-19 EduTrack @ Charleston, SC'
+app.title = 'COVID-19 EduTrack @ CofC'
 
 is_mobile = None
 
@@ -340,7 +340,7 @@ app.layout = html.Div(children=[
 
     html.Div([
         html.Img(src='assets/horizontal_logo_for_light_background.png', id='logo'),
-        html.P('Charleston, SC', id='title')
+        html.P('at College of Charleston', id='title')
     ], id='header'),
 
     html.Div([
