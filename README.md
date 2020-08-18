@@ -2,6 +2,8 @@
 This repo contains the code to collect, process, and display graphs of COVID-19 data for the College of Charleston area. This dashboard can be viewed live at this link: https://cofccovidtracker.herokuapp.com/
 
 Colleges face difficult decisions in their procedures during the Fall 2020 semester, including the College of Charleston (CofC). This dashboard shows graphs of the number of confirmed cases and reported deaths due to COVID-19 in Charleston County and the state of South Carolina. The graphs also show the lengths of time that CofC plans to hold fully virtual or hybrid classroom instruction. Below is a screenshot of the dashboard from August 18, 2020.
+
+![Screenshot of the webpage](readme_assets/screenshot.png)
 ## Data Sources
 The dashboard uses the latest data from the <a href="https://github.com/CSSEGISandData/COVID-19">JHU CSSE COVID-19 GitHub repo</a>. Their dataset provides daily numbers of COVID-19 cases and deaths at the county level.
 Disclaimer: The developer of this webpage is not liable nor responsible for the accuracy of this data, nor any decisions made based on the presentation of this data. Please navigate to the live webpage <a href="https://cofccovidtracker.herokuapp.com/">here</a> and click "Disclaimer and Privacy Policy" in the bottom right corner for additional details.
