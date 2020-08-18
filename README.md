@@ -9,11 +9,17 @@ The dashboard uses the latest data from the <a href="https://github.com/CSSEGISa
 Disclaimer: The developer of this webpage is not liable nor responsible for the accuracy of this data, nor any decisions made based on the presentation of this data. Please navigate to the live webpage <a href="https://cofccovidtracker.herokuapp.com/">here</a> and click "Disclaimer and Privacy Policy" in the bottom right corner for additional details.
 ## Overview of Methodology by File
 `app.py`: This is the main Python file, which is executed when the webpage is requested. This file is responsible for plotting the data on graphs and creating the HTML layout for the page.
+
 `covid_data.py`: Contains several classes for collecting and manipulating the COVID-19 data.
+
 `color.py`: A class to store and format strings for RGBA colors.
+
 `assets/intervals.csv`: A table containing the start and end dates for the semesters and the different class modes (“in-person”, “hybrid”, “virtual”), which is plotted in the background of the graph.
+
 `assets/script.js`: Contains event listeners to scroll the page on mobile devices when the user clicks one of the “Show Graph” buttons.
+
 `assets/analytics.js`: Google Analytics script
+
 `assets/style.css`: Styles the HTML elements laid out in `app.py`
 ## Highlights of Methodology
 <b>Object-Oriented Data Processing</b>: I initially had all the data processing (using pandas) in the `app.py` file. I realized that if this app were to scale up and need to handle more data, the code would be cleaner if I created a new file to handle the data processing in an object-oriented manner. `JHUDataset` is a class that is responsible for bringing in the data from the JHU CSSE COVID-19 GitHub repo and formatting the data for use in the dashboard. The subclasses (`StateData`, `CountyData`, etc.) take the pandas dataframe from `JHUDataset` and filters the data down to the specified state, county, etc. The methods in classes like `StateData` and `CountyData` then return specific data, such as the total number of cases or a pandas series containing the number of new cases each day for that state or county. Overall, making the data processing an object-oriented structure cleans up the code in `app.py` and makes it more organized and readable.
