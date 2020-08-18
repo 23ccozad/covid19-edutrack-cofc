@@ -5,8 +5,6 @@ body {
 }
 
 #header {
-    /*background: linear-gradient(135deg, #00B9F2, #3C6FC6, #7030A0);*/
-    /*background: #262626;*/
     background: #D3D3D3;
     box-sizing: border-box;
     padding: 15px 20px;
@@ -115,12 +113,15 @@ body {
     width: 100%;
 }
 
-#cofc-title{
+#cofc-title {
     background: #660000;
 }
 
-#chs-title {
-    /*background: #66520A*/
+#downtown-title {
+    background: #17AAB5;
+}
+
+#county-title {
     background: #056657;
 }
 
@@ -128,13 +129,13 @@ body {
     background: #003366
 }
 
-.card-cases {
+.card-half {
     width: 50%;
     display: inline-block;
 }
 
-.card-deaths {
-    width: 50%;
+.card-full {
+    width: 100%;
     display: inline-block;
 }
 
@@ -154,8 +155,8 @@ body {
 }
 
 .toggle-graph-button {
-    width: calc(100% - 60px);
-    margin: 0 30px 10px 30px;
+    width: 90px;
+    margin: 0 calc((100% - 90px)/2) 10px calc((100% - 90px)/2);
     padding: 3px 4px 4px 4px;
     font-size: 10px;
     font-family: Open Sans;
