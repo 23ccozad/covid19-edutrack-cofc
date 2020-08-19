@@ -521,11 +521,11 @@ def on_click(btn1, btn2, btn3, btn4, btn5):
     # Note: The order of items in return statement align with order of items in list of outputs at beginning of callback
     if 'show-downtown-cases' in changed_id:
         fig = generate_fig(show_downtown_cases=True)
-        title = 'Daily Confirmed Cases in Downtown Charleston'
+        title = 'Daily Cases in Downtown Charleston'
         return fig, title, 'downtown-title', selected_class, normal_class, normal_class, normal_class, normal_class
     elif 'show-chs-cases' in changed_id:
         fig = generate_fig(show_county_cases=True)
-        title = 'Daily Confirmed Cases in Charleston County'
+        title = 'Daily Cases in Charleston County'
         return fig, title, 'county-title', normal_class, normal_class, normal_class, normal_class, selected_class
     elif 'show-chs-deaths' in changed_id:
         fig = generate_fig(show_county_deaths=True)
@@ -533,7 +533,7 @@ def on_click(btn1, btn2, btn3, btn4, btn5):
         return fig, title, 'county-title', normal_class, normal_class, normal_class, selected_class, normal_class
     elif 'show-sc-cases' in changed_id:
         fig = generate_fig(show_sc_cases=True)
-        title = 'Daily Confirmed Cases in South Carolina'
+        title = 'Daily Cases in South Carolina'
         return fig, title, 'sc-title', normal_class, normal_class, selected_class, normal_class, normal_class
     elif 'show-sc-deaths' in changed_id:
         fig = generate_fig(show_sc_deaths=True)
