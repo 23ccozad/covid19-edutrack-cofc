@@ -118,7 +118,7 @@ body {
 }
 
 #downtown-title {
-    background: #17AAB5;
+    background: #139c95;
 }
 
 #county-title {
@@ -142,7 +142,7 @@ body {
 .number {
     text-align: center;
     font-size: 30px;
-    margin: 5px 0;
+    margin: 5px 0 2px 0;
     font-weight: 900;
 }
 
