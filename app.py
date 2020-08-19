@@ -1,4 +1,4 @@
-"""---------------------------------------------------------------------------------------------------------------------
+'''---------------------------------------------------------------------------------------------------------------------
   File Name:   app.py
   End Result:  Produces a webpage showing various COVID-19 data on graphs for use at College of Charleston
   Outline:     1) Instantiate Objects for RGB Colors Used In Interface
@@ -10,7 +10,7 @@
                7) Callbacks to change the graphs upon user's button click
   Author:      Connor Cozad (23ccozad@gmail.com)
   Created:     July 29, 2020
----------------------------------------------------------------------------------------------------------------------"""
+---------------------------------------------------------------------------------------------------------------------'''
 
 
 import dash
@@ -26,11 +26,20 @@ import covid_data  # Local file: covid_data.py
 
 
 ##### 1) Instantiate Objects for RGB Colors Used In Interface ----------------------------------------------------------
+# Note: All of the colors in this app.py file use these color objects. However, there are also other HTML elements
+# colors that are set in style.css, which do not use these color objects. For example, if you change the RGB values for
+# DARK_BLUE here which is the color used for South Carolina data and graphs, you will also want to make the same change
+# to the background property of #sc-title in style.css to maintain consistency.
 
-LIGHT_BLUE = color.Color(23, 170, 181)  # Color used for Downtown Charleston
+TEAL = color.Color(19, 146, 156)        # Color used for Downtown Charleston
 BLUE_GREEN = color.Color(5, 102, 87)    # Color used for Charleston County
 DARK_BLUE = color.Color(0, 51, 102)     # Color used for South Carolina
+WHITE = color.Color(255, 255, 255)
+OFF_WHITE = color.Color(248, 248, 248)
 LIGHT_GRAY = color.Color(211, 211, 211)
+DARK_GRAY = color.Color(85, 85, 85)
+DIM_GRAY = color.Color(41, 41, 41)
+BLACK = color.Color(0, 0, 0)
 TRANSPARENT = color.Color(0, 0, 0, 0)
 
 
@@ -49,8 +58,8 @@ app.title = 'COVID-19 EduTrack @ CofC'
 is_mobile = None
 @server.before_request
 def before_request():
-    agent = request.headers.get("User_Agent")
-    mobile_string = "(?i)android|fennec|iemobile|iphone|opera (?:mini|mobi)|mobile"
+    agent = request.headers.get('User_Agent')
+    mobile_string = '(?i)android|fennec|iemobile|iphone|opera (?:mini|mobi)|mobile'
     re_mobile = re.compile(mobile_string)
     global is_mobile
     is_mobile = len(re_mobile.findall(agent)) > 0
@@ -65,7 +74,7 @@ charleston_county = covid_data.CountyData('Charleston', 'South Carolina')
 downtown_charleston = covid_data.ZIPCodeGroupData([29401, 29424, 29425, 29403, 29409])
 
 # Read intervals.csv, which contains info about start and end dates of different semesters and class mode intervals
-# Class mode options are "in-person", "hybrid", and "virtual"
+# Class mode options are 'in-person', 'hybrid', and 'virtual'
 class_mode_intervals = pd.read_csv('assets/intervals.csv')
 class_mode_intervals['Start_Date'] = pd.to_datetime(class_mode_intervals['Start_Date'])
 class_mode_intervals['End_Date'] = pd.to_datetime(class_mode_intervals['End_Date'])
@@ -86,14 +95,14 @@ for row in class_mode_intervals.itertuples():
     end_date = row[4]
     class_mode_shapes.append(dict(
         fillcolor=LIGHT_GRAY.color_to_str(alpha=0.2),
-        line={"width": 0},
-        type="rect",
+        line={'width': 0},
+        type='rect',
         x0=start_date,
         x1=end_date,
-        xref="x",
+        xref='x',
         y0=0,
         y1=1.0,
-        yref="paper"
+        yref='paper'
     ))
     class_mode_labels.append(dict(
         x=start_date + (end_date - start_date) / 2,
@@ -101,9 +110,9 @@ for row in class_mode_intervals.itertuples():
         y=1.0,
         ax=0,
         text=label,
-        xref="x",
-        yanchor="top",
-        yref="paper"
+        xref='x',
+        yanchor='top',
+        yref='paper'
     ))
 
 # Lists to hold the shape and text objects that will be added to the graph to denote each semester
@@ -112,20 +121,20 @@ semester_labels=[]
 
 # Read through each row in the CSV and create the shape (a dark gray rectangle near the top of the graph) and text
 # labels to plot on the graph to denote each semester
-for semester in class_mode_intervals["Semester"].unique():
-    all_intervals_in_semester = class_mode_intervals.loc[class_mode_intervals["Semester"] == semester]
+for semester in class_mode_intervals['Semester'].unique():
+    all_intervals_in_semester = class_mode_intervals.loc[class_mode_intervals['Semester'] == semester]
     start_date = all_intervals_in_semester['Start_Date'].min()
     end_date = all_intervals_in_semester['End_Date'].max()
     semester_shapes.append(dict(
         fillcolor=LIGHT_GRAY.color_to_str(alpha=0.5),
-        line={"width": 0},
-        type="rect",
+        line={'width': 0},
+        type='rect',
         x0=start_date,
         x1=end_date,
-        xref="x",
+        xref='x',
         y0=1.0,
         y1=1.1,
-        yref="paper"
+        yref='paper'
     ))
     semester_labels.append(dict(
         x=start_date + (end_date - start_date) / 2,
@@ -133,9 +142,9 @@ for semester in class_mode_intervals["Semester"].unique():
         y=1.05,
         ax=0,
         text=semester,
-        xref="x",
-        yanchor="middle",
-        yref="paper"
+        xref='x',
+        yanchor='middle',
+        yref='paper'
     ))
 
 
@@ -149,8 +158,8 @@ def create_bar_graph(x, y, color, location):
         y=y,
         marker=dict(color=color.color_to_str(alpha=0.4), line_width=0),
         hovertemplate=
-        '<span style="font-size: 20px; font-weight: 900; color: ' + color.color_to_str() + '">%{y:,}</span>' +
-        '<span style="font-size: 12px; font-weight: 500; color: #555555"> cases</span>' +
+        '<span style="font-size: 20px; font-weight: 900; color: ' + color + '">%{y:,}</span>' +
+        '<span style="font-size: 12px; font-weight: 500; color: ' + DARK_GRAY + '"> cases</span>' +
         '<span style="color: gray"><br>%{x}' +
         '<br>' + location + '</span>' +
         '<extra></extra>'
@@ -161,7 +170,7 @@ def create_line_graph(x, y, color):
     return go.Scatter(
         x=x,
         y=y,
-        line=dict(color=color.color_to_str(), width=2),
+        line=dict(color=color, width=2),
         hoverinfo='none'
     )
 
@@ -185,39 +194,39 @@ def generate_fig(show_downtown_cases=False, show_county_cases=False, show_county
     fig = go.Figure(
         layout=go.Layout(
             margin=go.layout.Margin(l=50, r=50, b=20, t=50),
-            paper_bgcolor=TRANSPARENT.color_to_str(),
-            plot_bgcolor=TRANSPARENT.color_to_str(),
+            paper_bgcolor=TRANSPARENT,
+            plot_bgcolor=TRANSPARENT,
             xaxis=dict(
-                ticks="outside",
-                tickcolor='white',
+                ticks='outside',
+                tickcolor=WHITE,
                 ticklen=5,
                 tickfont=dict(
-                    color="dimgray"
+                    color=DIM_GRAY
                 ),
                 rangeslider=configure_rangeslider(),
-                type="date",
+                type='date',
                 range=[datetime.datetime(2020, 4, 30), datetime.datetime(2020, 12, 14)]
             ),
             yaxis=dict(
-                ticks="outside",
-                tickcolor='white',
+                ticks='outside',
+                tickcolor=WHITE,
                 ticklen=5,
                 tickfont=dict(
-                    color="dimgray"
+                    color=DIM_GRAY
                 ),
-                rangemode="tozero",
+                rangemode='tozero',
             ),
             hoverlabel=dict(
-                bgcolor="white",
-                bordercolor="rgb(248, 248, 248)",
+                bgcolor=WHITE,
+                bordercolor=OFF_WHITE,
                 font_size=10,
-                font_family="Open Sans",
-                font_color='black'
+                font_family='Open Sans',
+                font_color=BLACK
             ),
             autosize=True,
             dragmode=False,
-            font_family="Open Sans",
-            font_color="#222222",
+            font_family='Open Sans',
+            font_color=DIM_GRAY,
             spikedistance=1000,
             hovermode='x',
             shapes=class_mode_shapes + semester_shapes,
@@ -233,14 +242,14 @@ def generate_fig(show_downtown_cases=False, show_county_cases=False, show_county
         fig.add_trace(create_bar_graph(
             x=downtown_charleston.get_daily_cases().index,
             y=downtown_charleston.get_daily_cases().clip(lower=0).values,
-            color=LIGHT_BLUE,
+            color=TEAL,
             location='Downtown Charleston'
         ))
 
         fig.add_trace(create_line_graph(
             x=downtown_charleston.get_daily_cases_moving_avg(days=7).index,
             y=downtown_charleston.get_daily_cases_moving_avg(days=7).values,
-            color=LIGHT_BLUE,
+            color=TEAL,
         ))
 
     # Draw a bar graph of daily cases and a line graph of 7-day moving average of daily cases for Charleston County
@@ -320,7 +329,7 @@ app.layout = html.Div([
     # Provide Open Sans font
     html.Link(
         href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap',
-        rel="stylesheet"
+        rel='stylesheet'
     ),
 
     # Header bar containing logo
@@ -339,28 +348,28 @@ app.layout = html.Div([
                 id='graph',
                 figure=generate_fig(),
                 config={
-                    "displayModeBar": False,
-                    "showTips": False,
-                    "responsive": True,
-                    "autosizable": True,
-                    "doubleClick": not is_mobile,
+                    'displayModeBar': False,
+                    'showTips': False,
+                    'responsive': True,
+                    'autosizable': True,
+                    'doubleClick': not is_mobile,
                 }
             )
         ], id='graph-container', className='dashboard-card'),
 
-        # Container for column of "cards" shown to right of graph (or below graph on smaller screens)
+        # Container for column of 'cards' shown to right of graph (or below graph on smaller screens)
         html.Div([
 
             # Card containing numbers and buttons for viewing data in Charleston County
             html.Div([
                 html.H2('Charleston County', id='county-title', className='card-title'),
                 html.Div([
-                    html.P("{:,}".format(charleston_county.get_total_cases()), className='number'),
+                    html.P('{:,}'.format(charleston_county.get_total_cases()), className='number'),
                     html.P('Confirmed Cases', className='label'),
                     html.Button('Show Graph', className='toggle-graph-button', id='show-chs-cases')
                 ], className='card-half'),
                 html.Div([
-                    html.P("{:,}".format(charleston_county.get_total_deaths()), className='number'),
+                    html.P('{:,}'.format(charleston_county.get_total_deaths()), className='number'),
                     html.P('Reported Deaths', className='label'),
                     html.Button('Show Graph', className='toggle-graph-button', id='show-chs-deaths')
                 ], className='card-half')
@@ -370,12 +379,12 @@ app.layout = html.Div([
             html.Div([
                 html.H2('South Carolina', id='sc-title', className='card-title'),
                 html.Div([
-                    html.P("{:,}".format(south_carolina.get_total_cases()), className='number'),
+                    html.P('{:,}'.format(south_carolina.get_total_cases()), className='number'),
                     html.P('Confirmed Cases', className='label'),
                     html.Button('Show Graph', className='toggle-graph-button', id='show-sc-cases')
                 ], className='card-half'),
                 html.Div([
-                    html.P("{:,}".format(south_carolina.get_total_deaths()), className='number'),
+                    html.P('{:,}'.format(south_carolina.get_total_deaths()), className='number'),
                     html.P('Reported Deaths', className='label'),
                     html.Button('Show Graph', className='toggle-graph-button', id='show-sc-deaths')
                 ], className='card-half'),
@@ -385,7 +394,7 @@ app.layout = html.Div([
             html.Div([
                 html.H2('Downtown Charleston', id='downtown-title', className='card-title'),
                 html.Div([
-                    html.P("{:,}".format(downtown_charleston.get_total_cases()), className='number'),
+                    html.P('{:,}'.format(downtown_charleston.get_total_cases()), className='number'),
                     html.P('Confirmed Cases', className='label'),
                     html.Button('Show Graph', className='toggle-graph-button', id='show-downtown-cases')
                 ], className='card-full'),
@@ -394,34 +403,34 @@ app.layout = html.Div([
             # Button linked to CofC's Back on the Bricks plan
             html.A([
                 html.Div([
-                    html.P("CofC Back on the Bricks Plan", className='link-card-text')
+                    html.P('CofC Back on the Bricks Plan', className='link-card-text')
                 ], className='dashboard-card sidebar-card link-card')
-            ], href='https://cofc.edu/back-on-the-bricks/', target="_blank", className="no-underline"),
+            ], href='https://cofc.edu/back-on-the-bricks/', target='_blank', className='no-underline'),
 
             # Button linked to COVID-19 information from SC DHEC
             html.A([
                 html.Div([
-                    html.P("SC DHEC COVID-19 Information", className='link-card-text')
+                    html.P('SC DHEC COVID-19 Information', className='link-card-text')
                 ], className='dashboard-card sidebar-card link-card remove-bottom-margin')
             ], href='https://www.scdhec.gov/infectious-diseases/viruses/coronavirus-disease-2019-covid-19',
-            target="_blank", className="no-underline"),
+            target='_blank', className='no-underline'),
 
         ], id='sidebar')
 
     ], id='body'),
 
-    # Footer bar at bottom of webpage, containing links to "About the Developer" and "Disclaimer & Privacy Policy"
+    # Footer bar at bottom of webpage, containing links to 'About the Developer' and 'Disclaimer & Privacy Policy'
     html.Div([
         html.P('About the Developer', className='footer-items left-footer', id='open-about'),
         html.P('Disclaimer & Privacy Policy', className='footer-items right-footer', id='open-disclaimer')
     ], id='footer'),
 
-    # Show this popup box when user clicks on "About the Developer" in the footer bar
+    # Show this popup box when user clicks on 'About the Developer' in the footer bar
     html.Div([
         html.Div([
             html.H2('About the Developer', className='popup-title'),
             html.P('×', className='popup-close', id='close-about')
-        ], className="popup-heading"),
+        ], className='popup-heading'),
         html.P([
             'This dashboard was developed by Connor Cozad, an undergraduate studying data science at the College of Charleston. Feel free to reach out via ',
             html.A('LinkedIn', href='https://www.linkedin.com/in/connor-cozad', target='_blank'),
@@ -431,14 +440,14 @@ app.layout = html.Div([
             'Copyright © 2020 Connor Cozad'
         ],
         className='popup-body')
-    ], id="popup-left", className="popup-box", style={'display': 'none'}),
+    ], id='popup-left', className='popup-box', style={'display': 'none'}),
 
-    # Show this popup box when user clicks on "Disclaimer & Privacy Policy" in the footer bar
+    # Show this popup box when user clicks on 'Disclaimer & Privacy Policy' in the footer bar
     html.Div([
         html.Div([
             html.H2('Disclaimer & Privacy Policy', className='popup-title'),
             html.P('×', className='popup-close', id='close-disclaimer')
-        ], className="popup-heading"),
+        ], className='popup-heading'),
         html.P([
             'This webpage is not affiliated with the College of Charleston (CofC), the City of Charleston, Charleston County, the State of South Carolina, or the South Carolina Department of Health and Environmental Control. Links to external websites do not indicate an affiliation.',
             html.Br(), html.Br(),
@@ -456,7 +465,7 @@ app.layout = html.Div([
             html.A('disable cookies in their browser', href='https://www.avast.com/c-enable-disable-cookies', target='_blank'),
             '. For more information about the privacy policy, contact the developer by email at 23ccozad@gmail.com.'
         ], className='popup-body'),
-    ], id="popup-right", className="popup-box", style={'display': 'none'})
+    ], id='popup-right', className='popup-box', style={'display': 'none'})
 ])
 
 
@@ -502,31 +511,31 @@ def on_click(btn1, btn2, btn3, btn4, btn5):
     #    location (Charleston County, South Carolina, etc.). The colors associated are changed assigning the element a
     #    new ID, which can be seen in style.css
     # 4) Change the style of the button that was clicked to show that it has been selected. This is done by changing the
-    #    button's class to "selected_class". All other buttons are given the appearance that they were not selected by
-    #    being assigned "normal_class". These classes can be viewed in style.css
+    #    button's class to 'selected_class'. All other buttons are given the appearance that they were not selected by
+    #    being assigned 'normal_class'. These classes can be viewed in style.css
     # Note: The order of items in return statement align with order of items in list of outputs at beginning of callback
     if 'show-downtown-cases' in changed_id:
         fig = generate_fig(show_downtown_cases=True)
-        title = "Daily Confirmed Cases in Downtown Charleston"
-        return fig, title, "downtown-title", selected_class, normal_class, normal_class, normal_class, normal_class
+        title = 'Daily Confirmed Cases in Downtown Charleston'
+        return fig, title, 'downtown-title', selected_class, normal_class, normal_class, normal_class, normal_class
     elif 'show-chs-cases' in changed_id:
         fig = generate_fig(show_county_cases=True)
-        title = "Daily Confirmed Cases in Charleston County"
-        return fig, title, "county-title", normal_class, normal_class, normal_class, normal_class, selected_class
+        title = 'Daily Confirmed Cases in Charleston County'
+        return fig, title, 'county-title', normal_class, normal_class, normal_class, normal_class, selected_class
     elif 'show-chs-deaths' in changed_id:
         fig = generate_fig(show_county_deaths=True)
-        title = "Daily Deaths in Charleston County"
-        return fig, title, "county-title", normal_class, normal_class, normal_class, selected_class, normal_class
+        title = 'Daily Deaths in Charleston County'
+        return fig, title, 'county-title', normal_class, normal_class, normal_class, selected_class, normal_class
     elif 'show-sc-cases' in changed_id:
         fig = generate_fig(show_sc_cases=True)
-        title = "Daily Confirmed Cases in South Carolina"
-        return fig, title, "sc-title", normal_class, normal_class, selected_class, normal_class, normal_class
+        title = 'Daily Confirmed Cases in South Carolina'
+        return fig, title, 'sc-title', normal_class, normal_class, selected_class, normal_class, normal_class
     elif 'show-sc-deaths' in changed_id:
         fig = generate_fig(show_sc_deaths=True)
-        title = "Daily Deaths in South Carolina"
-        return fig, title, "sc-title", normal_class, selected_class, normal_class, normal_class, normal_class
+        title = 'Daily Deaths in South Carolina'
+        return fig, title, 'sc-title', normal_class, selected_class, normal_class, normal_class, normal_class
 
-# Show the disclaimer and privacy policy popup shown when "Disclaimer & Privacy Policy" is clicked
+# Show the disclaimer and privacy policy popup shown when 'Disclaimer & Privacy Policy' is clicked
 # Also, close the popup when the X button is clicked
 @app.callback(
     dash.dependencies.Output('popup-right', 'style'),
@@ -536,7 +545,7 @@ def on_click(btn1, btn2, btn3, btn4, btn5):
     ]
 )
 
-# This function is called whenever the "Disclaimer & Privacy Policy" button in the footer bar or the "X" in the popup
+# This function is called whenever the 'Disclaimer & Privacy Policy' button in the footer bar or the 'X' in the popup
 # window is clicked
 def right_popup(btn1, btn2):
 
@@ -549,7 +558,7 @@ def right_popup(btn1, btn2):
     elif changed_id == 'close-disclaimer':
         return {'display': 'none'}
 
-# Show the "About" popup shown when "About the Developer" is clicked
+# Show the 'About' popup shown when 'About the Developer' is clicked
 # Also, close the popup when the X button is clicked
 @app.callback(
     dash.dependencies.Output('popup-left', 'style'),
@@ -557,7 +566,7 @@ def right_popup(btn1, btn2):
      dash.dependencies.Input('close-about', 'n_clicks')]
 )
 
-# This function is called whenever the "About the Developer" button in the footer bar or the "X" in the popup
+# This function is called whenever the 'About the Developer' button in the footer bar or the 'X' in the popup
 # window is clicked
 def left_popup(btn1, btn2):
 
