@@ -5,7 +5,7 @@ Colleges face difficult decisions in their procedures during the Fall 2020 semes
 
 ![Screenshot of the webpage](readme_assets/screenshot.png)
 ## Data Sources
-The dashboard uses the latest data from the <a href="https://github.com/CSSEGISandData/COVID-19">JHU CSSE COVID-19 GitHub repo</a>. Their dataset provides daily numbers of COVID-19 cases and deaths at the county level. The dashbaord also uses ZIP code level data from the <a href="https://scdhec-covid-19-open-data-sc-dhec.hub.arcgis.com/">South Carolina Department of Health and Environmental Control's ArcGIS Open Data</a>
+The dashboard uses the latest data from the <a href="https://github.com/CSSEGISandData/COVID-19">JHU CSSE COVID-19 GitHub repo</a>. Their dataset provides daily numbers of COVID-19 cases and deaths at the county level. The dashboard also uses ZIP code level data from the <a href="https://scdhec-covid-19-open-data-sc-dhec.hub.arcgis.com/">South Carolina Department of Health and Environmental Control's ArcGIS Open Data</a>
 
 Disclaimer: The developer of this webpage is not liable nor responsible for the accuracy of this data, nor any decisions made based on the presentation of this data. Please navigate to the live webpage <a href="https://cofccovidtracker.herokuapp.com/">here</a> and click "Disclaimer and Privacy Policy" in the bottom right corner for additional details.
 ## Overview of Methodology by File
