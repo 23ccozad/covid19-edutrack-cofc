@@ -363,20 +363,6 @@ app.layout = html.Div(children=[
         html.Div([
 
             html.Div([
-                html.H2(children='College of Charleston', id='cofc-title', className='card-title'),
-                html.Div([
-                    html.P(children='0', className='number'),
-                    html.P(children='Confirmed Cases', className='label'),
-                    html.Button('Show Graph', className='toggle-graph-button', id='show-cofc-cases', disabled=True)
-                ], className='card-deaths'),
-                html.Div([
-                    html.P(children='0', className='number'),
-                    html.P(children='Reported Deaths', className='label'),
-                    html.Button('Show Graph', className='toggle-graph-button', id='show-cofc-deaths', disabled=True)
-                ], className='card-cases')
-            ], className='dashboard-card sidebar-card remove-top-margin'),
-
-            html.Div([
                 html.H2(children='Charleston County', id='chs-title', className='card-title'),
                 html.Div([
                     html.P(children="{:,}".format(chs_total_cases), className='number'),
@@ -403,6 +389,10 @@ app.layout = html.Div(children=[
                     html.Button('Show Graph', className='toggle-graph-button', id='show-sc-deaths')
                 ], className='card-cases')
             ], className='dashboard-card sidebar-card'),
+            
+            html.Div([
+                'The COVID-19 EduTrack App was down for an unknown period of time yesterday (October 14th). We are looking into the cause of the issue and have temporarily reverted to a previous version of the app.'
+            ], className='dashboard-card sidebar-card remove-top-margin error-text'),
 
             html.A([
                 html.Div([
