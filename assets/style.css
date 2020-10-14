@@ -102,6 +102,13 @@ body {
     margin-bottom: 0;
 }
 
+.error-text {
+    font-size: 12px;
+    padding: 10px;
+    text-align: center;
+    color: gray;
+}
+
 .card-title {
     text-align: center;
     text-transform: uppercase;
