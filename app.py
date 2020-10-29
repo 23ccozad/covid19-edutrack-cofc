@@ -389,10 +389,6 @@ app.layout = html.Div(children=[
                     html.Button('Show Graph', className='toggle-graph-button', id='show-sc-deaths')
                 ], className='card-cases')
             ], className='dashboard-card sidebar-card'),
-            
-            html.Div([
-                'The COVID-19 EduTrack App was down for an unknown period of time on October 14th. We are looking into the cause of the issue and have temporarily reverted to a previous version of the app.'
-            ], className='dashboard-card sidebar-card error-text'),
 
             html.A([
                 html.Div([
