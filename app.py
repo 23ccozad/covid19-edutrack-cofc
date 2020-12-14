@@ -71,7 +71,7 @@ def before_request():
 # Create objects to retrieve and manipulate data by geographic location
 south_carolina = covid_data.StateData('South Carolina')
 charleston_county = covid_data.CountyData('Charleston', 'South Carolina')
-downtown_charleston = covid_data.ZIPCodeGroupData([29401, 29424, 29425, 29403, 29409])
+#downtown_charleston = covid_data.ZIPCodeGroupData([29401, 29424, 29425, 29403, 29409])
 
 # Read intervals.csv, which contains info about start and end dates of different semesters and class mode intervals
 # Class mode options are 'in-person', 'hybrid', and 'virtual'
@@ -181,7 +181,7 @@ def configure_rangeslider():
         return dict(
             visible=True,
             bgcolor=LIGHT_GRAY.color_to_str(alpha=0.2),
-            range=[datetime.datetime(2020, 1, 8), datetime.datetime(2020, 12, 14)]
+            range=[datetime.datetime(2020, 1, 8), datetime.datetime(2021, 4, 30)]
         )
     else:
         return dict(visible=False)
@@ -205,7 +205,7 @@ def generate_fig(show_downtown_cases=False, show_county_cases=False, show_county
                 ),
                 rangeslider=configure_rangeslider(),
                 type='date',
-                range=[datetime.datetime(2020, 4, 30), datetime.datetime(2020, 12, 14)]
+                range=[datetime.datetime(2020, 8, 25), datetime.datetime(2021, 4, 30)]
             ),
             yaxis=dict(
                 ticks='outside',
@@ -237,21 +237,21 @@ def generate_fig(show_downtown_cases=False, show_county_cases=False, show_county
         )
     )
 
-    # Draw a bar graph of daily cases and a line graph of 7-day moving average of daily cases for Downtown Charleston
-    if show_downtown_cases:
-        fig.add_trace(create_bar_graph(
-            x=downtown_charleston.get_daily_cases().index,
-            y=downtown_charleston.get_daily_cases().clip(lower=0).values,
-            color=TEAL,
-            location='Downtown Charleston',
-            units='cases'
-        ))
-
-        fig.add_trace(create_line_graph(
-            x=downtown_charleston.get_daily_cases_moving_avg(days=7).index,
-            y=downtown_charleston.get_daily_cases_moving_avg(days=7).values,
-            color=TEAL,
-        ))
+    # # Draw a bar graph of daily cases and a line graph of 7-day moving average of daily cases for Downtown Charleston
+    # if show_downtown_cases:
+    #     fig.add_trace(create_bar_graph(
+    #         x=downtown_charleston.get_daily_cases().index,
+    #         y=downtown_charleston.get_daily_cases().clip(lower=0).values,
+    #         color=TEAL,
+    #         location='Downtown Charleston',
+    #         units='cases'
+    #     ))
+    #
+    #     fig.add_trace(create_line_graph(
+    #         x=downtown_charleston.get_daily_cases_moving_avg(days=7).index,
+    #         y=downtown_charleston.get_daily_cases_moving_avg(days=7).values,
+    #         color=TEAL,
+    #     ))
 
     # Draw a bar graph of daily cases and a line graph of 7-day moving average of daily cases for Charleston County
     if show_county_cases:
@@ -370,12 +370,12 @@ app.layout = html.Div([
                 html.H2('Charleston County', id='county-title', className='card-title'),
                 html.Div([
                     html.P('{:,}'.format(charleston_county.get_total_cases()), className='number'),
-                    html.P('Cases', className='label'),
+                    html.P('Confirmed Cases', className='label'),
                     html.Button('Show Graph', className='toggle-graph-button', id='show-chs-cases')
                 ], className='card-half'),
                 html.Div([
                     html.P('{:,}'.format(charleston_county.get_total_deaths()), className='number'),
-                    html.P('Deaths', className='label'),
+                    html.P('Reported Deaths', className='label'),
                     html.Button('Show Graph', className='toggle-graph-button', id='show-chs-deaths')
                 ], className='card-half')
             ], className='dashboard-card sidebar-card remove-top-margin'),
@@ -385,25 +385,25 @@ app.layout = html.Div([
                 html.H2('South Carolina', id='sc-title', className='card-title'),
                 html.Div([
                     html.P('{:,}'.format(south_carolina.get_total_cases()), className='number'),
-                    html.P('Cases', className='label'),
+                    html.P('Confirmed Cases', className='label'),
                     html.Button('Show Graph', className='toggle-graph-button', id='show-sc-cases')
                 ], className='card-half'),
                 html.Div([
                     html.P('{:,}'.format(south_carolina.get_total_deaths()), className='number'),
-                    html.P('Deaths', className='label'),
+                    html.P('Reported Deaths', className='label'),
                     html.Button('Show Graph', className='toggle-graph-button', id='show-sc-deaths')
                 ], className='card-half'),
             ], className='dashboard-card sidebar-card'),
 
-            # Card containing numbers and buttons for viewing data in Downtown Charleston
-            html.Div([
-                html.H2('Downtown Charleston', id='downtown-title', className='card-title'),
-                html.Div([
-                    html.P('{:,}'.format(downtown_charleston.get_total_cases()), className='number'),
-                    html.P('Cases', className='label'),
-                    html.Button('Show Graph', className='toggle-graph-button', id='show-downtown-cases')
-                ], className='card-full'),
-            ], className='dashboard-card sidebar-card'),
+            # # Card containing numbers and buttons for viewing data in Downtown Charleston
+            # html.Div([
+            #     html.H2('Downtown Charleston', id='downtown-title', className='card-title'),
+            #     html.Div([
+            #         html.P('{:,}'.format(downtown_charleston.get_total_cases()), className='number'),
+            #         html.P('Cases', className='label'),
+            #         html.Button('Show Graph', className='toggle-graph-button', id='show-downtown-cases')
+            #     ], className='card-full'),
+            # ], className='dashboard-card sidebar-card'),
 
             # Button linked to CofC's Back on the Bricks plan
             html.A([
@@ -484,13 +484,13 @@ app.layout = html.Div([
         dash.dependencies.Output('graph', 'figure'),
         dash.dependencies.Output('graph-title', 'children'),
         dash.dependencies.Output('graph-title', 'id'),
-        dash.dependencies.Output('show-downtown-cases', 'className'),
+        #dash.dependencies.Output('show-downtown-cases', 'className'),
         dash.dependencies.Output('show-sc-deaths', 'className'),
         dash.dependencies.Output('show-sc-cases', 'className'),
         dash.dependencies.Output('show-chs-deaths', 'className'),
         dash.dependencies.Output('show-chs-cases', 'className'),
     ], [
-        dash.dependencies.Input('show-downtown-cases', 'n_clicks'),
+        #dash.dependencies.Input('show-downtown-cases', 'n_clicks'),
         dash.dependencies.Input('show-sc-deaths', 'n_clicks'),
         dash.dependencies.Input('show-sc-cases', 'n_clicks'),
         dash.dependencies.Input('show-chs-deaths', 'n_clicks'),
@@ -499,7 +499,7 @@ app.layout = html.Div([
 )
 
 # This function is called whenever one of the above input objects is triggered by a mouse click
-def on_click(btn1, btn2, btn3, btn4, btn5):
+def on_click(btn1, btn2, btn3, btn4):
 
     # Determine the ID of the button that was clicked
     changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
@@ -519,26 +519,26 @@ def on_click(btn1, btn2, btn3, btn4, btn5):
     #    button's class to 'selected_class'. All other buttons are given the appearance that they were not selected by
     #    being assigned 'normal_class'. These classes can be viewed in style.css
     # Note: The order of items in return statement align with order of items in list of outputs at beginning of callback
-    if 'show-downtown-cases' in changed_id:
-        fig = generate_fig(show_downtown_cases=True)
-        title = 'Daily Cases in Downtown Charleston'
-        return fig, title, 'downtown-title', selected_class, normal_class, normal_class, normal_class, normal_class
-    elif 'show-chs-cases' in changed_id:
+    # if 'show-downtown-cases' in changed_id:
+    #     fig = generate_fig(show_downtown_cases=True)
+    #     title = 'Daily Cases in Downtown Charleston'
+    #     return fig, title, 'downtown-title', normal_class, normal_class, normal_class, normal_class
+    if 'show-chs-cases' in changed_id:
         fig = generate_fig(show_county_cases=True)
         title = 'Daily Cases in Charleston County'
-        return fig, title, 'county-title', normal_class, normal_class, normal_class, normal_class, selected_class
+        return fig, title, 'county-title', normal_class, normal_class, normal_class, selected_class
     elif 'show-chs-deaths' in changed_id:
         fig = generate_fig(show_county_deaths=True)
         title = 'Daily Deaths in Charleston County'
-        return fig, title, 'county-title', normal_class, normal_class, normal_class, selected_class, normal_class
+        return fig, title, 'county-title', normal_class, normal_class, selected_class, normal_class
     elif 'show-sc-cases' in changed_id:
         fig = generate_fig(show_sc_cases=True)
         title = 'Daily Cases in South Carolina'
-        return fig, title, 'sc-title', normal_class, normal_class, selected_class, normal_class, normal_class
+        return fig, title, 'sc-title', normal_class, selected_class, normal_class, normal_class
     elif 'show-sc-deaths' in changed_id:
         fig = generate_fig(show_sc_deaths=True)
         title = 'Daily Deaths in South Carolina'
-        return fig, title, 'sc-title', normal_class, selected_class, normal_class, normal_class, normal_class
+        return fig, title, 'sc-title', selected_class, normal_class, normal_class, normal_class
 
 # Show the disclaimer and privacy policy popup shown when 'Disclaimer & Privacy Policy' is clicked
 # Also, close the popup when the X button is clicked
