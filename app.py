@@ -205,7 +205,7 @@ def generate_fig(show_downtown_cases=False, show_county_cases=False, show_county
                 ),
                 rangeslider=configure_rangeslider(),
                 type='date',
-                range=[datetime.datetime(2020, 8, 25), datetime.datetime(2021, 8, 23)]
+                range=[datetime.datetime(2021, 1, 11), datetime.datetime(2021, 12, 13)]
             ),
             yaxis=dict(
                 ticks='outside',
@@ -214,7 +214,7 @@ def generate_fig(show_downtown_cases=False, show_county_cases=False, show_county
                 tickfont=dict(
                     color=DIM_GRAY.__str__()
                 ),
-                rangemode='tozero',
+                rangemode='nonnegative',
             ),
             hoverlabel=dict(
                 bgcolor=WHITE.__str__(),
