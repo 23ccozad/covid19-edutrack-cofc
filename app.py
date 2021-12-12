@@ -181,7 +181,7 @@ def configure_rangeslider():
         return dict(
             visible=True,
             bgcolor=LIGHT_GRAY.color_to_str(alpha=0.2),
-            range=[datetime.datetime(2020, 1, 8), datetime.datetime(2021, 8, 23)]
+            range=[datetime.datetime(2020, 1, 11), datetime.datetime(2022, 5, 2)]
         )
     else:
         return dict(visible=False)
@@ -205,7 +205,7 @@ def generate_fig(show_downtown_cases=False, show_county_cases=False, show_county
                 ),
                 rangeslider=configure_rangeslider(),
                 type='date',
-                range=[datetime.datetime(2021, 1, 11), datetime.datetime(2021, 12, 13)]
+                range=[datetime.datetime(2021, 1, 11), datetime.datetime(2022, 5, 2)]
             ),
             yaxis=dict(
                 ticks='outside',
