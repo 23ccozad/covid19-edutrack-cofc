@@ -205,7 +205,7 @@ def generate_fig(show_downtown_cases=False, show_county_cases=False, show_county
                 ),
                 rangeslider=configure_rangeslider(),
                 type='date',
-                range=[datetime.datetime(2021, 8, 24), datetime.datetime(2022, 8, 22)]
+                range=[datetime.datetime(2021, 8, 24), datetime.datetime(2022, 12, 12)]
             ),
             yaxis=dict(
                 ticks='outside',
